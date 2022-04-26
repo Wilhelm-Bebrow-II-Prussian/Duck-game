@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style type="text/css">
+        .box{
+        background-image: url(1.png);
+        background-size: 100% 100%;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        background-image: url(1.png);
+        }
+    </style>
+</head>
+<body style="background-image: url(fon1.jpg); background-size: 100%;">
+    <button class="btn" style="position: absolute;left:850px;top:70px;padding:10px 40px; border-radius: 10px; background: gray;"><h2>Начать игру</h2></button>
+    <h1 style="position: absolute;left:860px;top:130px;">Score:<span class="score">0</span> из 20</h1>
+
+<script type="text/javascript">
+    let btn = document.querySelector(".btn");
+    let int1;
+
+    btn.onclick = function(){
+        int1 = setInterval( createElem ,500);
+        setTimeout(finish, 9000);
+    }
+
+    function zavod(arg){
+        let rand = Math.random() * arg;
+        let round = Math.round(rand); 
+        return round
+    }
+
+
+    let y = [200, 400, 600];
+    let images = ["1-1.png", "2-2.png", "3-3.png"];
+    let score = 0;
+
+
+    function createElem(){
+
+        let elem  = document.createElement('div');
+    document.body.appendChild(elem);
+    elem.classList.add("box");
+    elem.style.left = zavod(1600) + 'px';
+    elem.style.top = y[zavod(2)] + 'px';
+
+    let random_img = zavod(2)
+    elem.style.backgroundImage = "url(" + images[random_img] + ")";
+    
+    if (random_img == 0){
+        elem.name = "norm";
+    }else if(random_img == 1){
+        elem.name = "good";
+    }else if(random_img == 2){
+        elem.name = "bad";
+    }
+
+
+    elem.onclick = function(){
+        elem.style.display = "none";
+
+        if (elem.name == "norm"){
+            score = score + 1;
+        }
+        if (elem.name == "good"){
+            score = score + 2;
+        }
+        if (elem.name == "bad"){
+            score = score - 1;
+        }
+        document.querySelector(".score").innerHTML = score;
+    }
+    }
+   
+
+    function finish(){
+        clearInterval(int1);
+        if (score > 19){
+            alert("победа")
+        }
+        if (score < 20){
+            alert("проиграл")
+        }
+        btn.style.display = "none";
+    }
+
+</script>
+</body>
+</html>
